@@ -27,9 +27,14 @@ class AboutController extends Controller
             ['id' => 1],
             ['name' => 'John Doe', 'email' => 'j.doe@mail.com']
         );
-        
+
         $user->name = $request->name;
         $user->email = $request->email;
+        // Falls $user->password leer ist, muss ein default Passwort gesetzt werden
+        if ($request->password) {
+            $user->password = bcrypt("password");
+        }
+        
         $user->save();
 
         return redirect()->route('about')->with('success', 'User updated.');
