@@ -23,7 +23,11 @@ class AboutController extends Controller
     }
 
     public function update(Request $request) {
-        $user = User::find(1);
+        $user = User::firstOrNew(
+            ['id' => 1],
+            ['name' => 'John Doe', 'email' => 'j.doe@mail.com']
+        );
+        
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
